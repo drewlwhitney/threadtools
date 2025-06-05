@@ -14,7 +14,7 @@ class CallbackQueueContainer:
         )
 
     def get_callback_queue(self, thread: Thread) -> Queue[Callable[[], None]]:
-        """Get the callback queue associated with `thread`."""
+        """Get the callback queue associated with `thread`. This is thread-safe."""
         with self.callback_queues as callback_queues:
             try:  # if there is already a queue for `thread`, return it
                 return callback_queues[thread]
@@ -26,8 +26,7 @@ class CallbackQueueContainer:
 
     def process_events(self):
         """Process all events for the current thread."""
-        with self.callback_queues as callback_queues:
-            queue = callback_queues[threading.current_thread()]
+        queue = self.get_callback_queue(threading.current_thread())
         try:
             while True:
                 callback = queue.get_nowait()
