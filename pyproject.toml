@@ -17,8 +17,8 @@ license-files = ["LICEN[CS]E*"]
 
 # project links
 [project.urls]
-Homepage = "https://github.nrel.gov/dwhitney/threadtools"
-Issues = "https://github.nrel.gov/dwhitney/threadtools/issues"
+Homepage = "https://github.com/drewlwhitney/threadtools"
+Issues = "https://github.com/drewlwhitney/threadtools/issues"
 
 # setuptools
 [tool.setuptools.packages.find]
