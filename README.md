@@ -54,4 +54,4 @@ while thread.is_alive():
 ```
 
 # Thread Safety
-`threadtools` is designed to be thread-safe as long as signals are connected to the correct recipient. Recipients must be `SignalObject`s. `SignalObject`s can be associated with a different thread using their `move_to_thread()` method.
+`threadtools` is designed to be thread-safe as long as signals are connected to the correct recipient. Recipients must be `SignalReceiver`s. `SignalReceiver`s can be associated with a different thread using their `move_to_thread()` method.
