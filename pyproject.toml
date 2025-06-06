@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 # project details
 [project]
 name = "threadtools"
-version = "0.0.6"
+version = "0.0.7"
 authors = [{ name = "Drew Whitney", email = "drewlwhitney@gmail.com" }]
 description = "Tools for synchronizing threads using better locks and signals."
 readme = "README.md"
