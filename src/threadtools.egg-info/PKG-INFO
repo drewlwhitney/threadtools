@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: threadtools
+Version: 0.0.3
+Summary: Tools for synchronizing threads using better locks and signals.
+Author-email: Drew Whitney <Drew.Whitney@nrel.gov>
+License-Expression: GPL-3.0-or-later
+Project-URL: Homepage, https://github.com/drewlwhitney/threadtools
+Project-URL: Issues, https://github.com/drewlwhitney/threadtools/issues
+Requires-Python: >=3.13
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# threadtools
+Support for signals and better locks in native Python.
