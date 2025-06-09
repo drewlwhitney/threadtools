@@ -80,7 +80,12 @@ class Signal(Generic[CallbackArguments]):  # generic class based on the callback
         # this is a wrapper for the outer callback so that the function posted on the
         # signal queue takes no arguments and returns nothing
         def inner():
-            callback(*args, **kwargs)
+            # callbacks should not fail
+            # if the callback fails it is not the signal's problem and is silently ignored
+            try:
+                callback(*args, **kwargs)
+            except Exception:
+                pass
 
         # if the current thread is the same as the receiving thread, it is safe to
         # immediately process the callback
