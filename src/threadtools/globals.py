@@ -20,8 +20,7 @@ class CallbackQueueContainer:
                 return callback_queues[thread]
             except KeyError:  # otherwise add a new queue and return it
                 queue: Queue[Callable[[], None]] = Queue()
-                with self.callback_queues as callback_queues:
-                    callback_queues[thread] = queue
+                callback_queues[thread] = queue
                 return queue
 
     def process_events(self):
