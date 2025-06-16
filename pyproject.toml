@@ -6,11 +6,11 @@ build-backend = "setuptools.build_meta"
 # project details
 [project]
 name = "threadtools"
-version = "1.0.1"
+version = "1.0.2"
 authors = [{ name = "Drew Whitney", email = "drewlwhitney@gmail.com" }]
 description = "Tools for synchronizing threads using better locks and signals."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 # license
 license = "GPL-3.0-or-later"
 license-files = ["LICEN[CS]E*"]
