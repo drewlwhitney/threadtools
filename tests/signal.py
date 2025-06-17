@@ -19,6 +19,9 @@ class DummyObject:
 
 
 def test_emit_single_thread():
+    """
+    Test a signal in a single thread. When calling `emit()`, the callback should run immediately.
+    """
     signal = Signal[int]()
     test_object = DummyObject(2)
 
@@ -30,6 +33,11 @@ def test_emit_single_thread():
 
 
 def test_emit_multi_thread():
+    """
+    Test a signal in multiple threads. When calling `emit()` in the same thread as the receiver, the
+    callback should run immediately. When calling `emit()` from a different thread than the
+    receiver, the callback should be queued.
+    """
     signal = Signal[int]()
     test_object = DummyObject(2)
 
@@ -50,6 +58,10 @@ def test_emit_multi_thread():
 
 
 def test_disconnect():
+    """
+    Test `disconnect()`. After calling `disconnect()` on a signal, calling `emit()` should do
+    nothing.
+    """
     signal = Signal[int]()
 
     def temp_func(x: int):
@@ -68,7 +80,8 @@ def test_disconnect():
     assert len(signal.methods.get()) == 0
 
 
-def test_callbacks() -> None:
+def test_callbacks():
+    """Test that regular callbacks work with signals."""
     signal = Signal[int, float, str]()
 
     test_object = DummyObject(4)
@@ -86,6 +99,10 @@ def test_callbacks() -> None:
 
 
 def test_methods():
+    """
+    Test that methods work with signals. If the method owner gets deleted, the method should be
+    removed from the signal's callback list.
+    """
     signal = Signal[int]()
     test_object = DummyObject(23489)
 
@@ -99,6 +116,12 @@ def test_methods():
 
 
 def test_connection_type():
+    """
+    Test that the three `ConnectionType`s work correctly. `Direct` should cause the callback to run
+    immediately. `Queued` should force the callback to be queued. `Auto` should behave as either
+    `Direct` or `Queued`, depending on whether `connect()` was called from the same thread or a
+    different one than `emit()`.
+    """
     direct_signal = Signal[int]()
     queued_signal = Signal[int]()
     auto_signal_same_thread = Signal[int]()
@@ -137,6 +160,7 @@ def test_connection_type():
 
 
 def test_remove_on_thread_death():
+    """Test that when the thread that owns a callback dies, the callback is removed."""
     signal = Signal()
 
     thread = Thread(target=signal.connect, args=(lambda: None,))
@@ -145,6 +169,6 @@ def test_remove_on_thread_death():
     del thread  # simulate the thread being garbage collected
 
     assert len(signal.callbacks.get()) == 1
-    signal.emit(5)
+    signal.emit()
     # the thread was destroyed, so calling `emit()` should have removed the connection
     assert len(signal.callbacks.get()) == 0
